@@ -22,11 +22,11 @@ export default class CustomModal extends Component {
   }
 
   handleChange = e => {
-    let { name, value } = e.target;
+    let { name: fieldName, value: updatedValue } = e.target;
     if (e.target.type === "checkbox") {
-      value = e.target.checked;
+      updatedValue = e.target.checked;
     }
-    const activeItem = { ...this.state.activeItem, [name]: value };
+    const activeItem = { ...this.state.activeItem, [fieldName]: updatedValue };
     this.setState({ activeItem });
   };
 

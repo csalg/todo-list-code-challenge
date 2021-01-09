@@ -5,7 +5,7 @@
   import ReactDOM from 'react-dom';
   import 'bootstrap/dist/css/bootstrap.min.css';       // add this
   import './index.css';
-  import App from './App';
+  import App from './scene/App';
   import * as serviceWorker from './serviceWorker';
   
   ReactDOM.render(<App />, document.getElementById('root'));
