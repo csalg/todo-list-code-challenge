@@ -1,9 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import './styles.css'
-import TaskList from "./TaskList";
 import TaskEditor from "./TaskEditor";
 import backendServices from "./backendServices";
 import mockData from "./mockData";
+import Context from "./context";
+import TaskListFilter, {Filter} from "./TaskListFilter";
+import TaskListTable from "./TaskListTable";
 
 export default class extends Component {
   constructor(props) {
@@ -77,4 +79,53 @@ const initialTask = {
     title: "",
     description: "",
     completed: false
+}
+
+const TaskList = (props) => {
+    const [context, setContext] = useState({
+        text: "",
+        tags: [],
+        showCompleted: false
+    })
+
+    const tags = []
+    props.tasks.forEach(task => task.tags.forEach(tag => {
+            if (!tags.includes(tag))
+                tags.push(tag)
+        }
+    ))
+
+    const filteredTasks = props.tasks.filter(
+        task => {
+            const completeFilter = !task.completed || context.showCompleted
+            const textFilter = task.title.search(context.text) !== -1 || task.description.search(context.text) !== -1
+            const __isAnyTaskTagSelected = tags => {
+                if (!context.tags.length) {
+                    return true
+                } else {
+                    for (const i in tags) {
+                        if (context.tags.includes(tags[i])) {
+                            return true
+                        }
+                    }
+                    return false
+                }
+            }
+            const tagsFilter = __isAnyTaskTagSelected(task.tags)
+            return completeFilter && textFilter && tagsFilter
+        }
+    )
+
+    return (
+        <Context.Provider value={[context, setContext]}>
+            <TaskListFilter
+                tags={tags}
+            />
+            <TaskListTable
+                tasks={filteredTasks}
+                editCallback={props.editTaskCallback}
+                deleteCallback={props.deleteTaskCallback}
+            />
+        </Context.Provider>
+    )
 }

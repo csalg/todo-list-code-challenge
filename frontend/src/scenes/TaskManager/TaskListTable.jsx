@@ -1,56 +1,6 @@
-import React, {useContext, useState} from "react";
-import Context from './context'
-import {Filter} from "./TaskListFilter";
+import React from "react";
 
-const TaskList = (props) => {
-    const [context, setContext] = useState({
-        text: "",
-        tags: [],
-        showCompleted: false
-    })
-
-    const tags = []
-    props.tasks.forEach(task => task.tags.forEach(tag => {
-            if (!tags.includes(tag))
-                tags.push(tag)
-        }
-    ))
-
-    const filteredTasks = props.tasks.filter(
-        task => {
-            const completeFilter = !task.completed || context.showCompleted
-            const textFilter = task.title.search(context.text) !== -1 || task.description.search(context.text) !== -1
-            const __isAnyTaskTagSelected = tags => {
-                if (!context.tags.length) {
-                    return true
-                } else {
-                    for (const i in tags) {
-                        if (context.tags.includes(tags[i])) {
-                            return true
-                        }
-                    }
-                    return false
-                }
-            }
-            const tagsFilter = __isAnyTaskTagSelected(task.tags)
-            return completeFilter && textFilter && tagsFilter
-        }
-    )
-
-    return (
-        <Context.Provider value={[context, setContext]}>
-            <Filter
-                tags={tags}
-            />
-            <TasksTable
-                tasks={filteredTasks}
-                editCallback={props.editTaskCallback}
-                deleteCallback={props.deleteTaskCallback}
-            />
-        </Context.Provider>
-    )
-}
-const TasksTable = ({tasks, editCallback, deleteCallback}) => {
+export default ({tasks, editCallback, deleteCallback}) => {
     return (
         <ul className="list-group list-group-flush">
             <li
@@ -130,4 +80,3 @@ const Task = ({task, editCallback, deleteCallback}) => {
     )
 }
 
-export default TaskList

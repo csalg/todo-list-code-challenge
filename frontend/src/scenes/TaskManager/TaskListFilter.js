@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import Context from "./context";
 
-export const Filter = ({tags}) => {
+export default ({tags}) => {
     return (<div className="my-5 tab-list">
         <SearchBox/>
         <CompletedTasksCheckbox/>
