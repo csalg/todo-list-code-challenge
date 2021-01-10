@@ -3,6 +3,7 @@ import './styles.css'
 import TaskList from "./TaskList";
 import TaskEditor from "./TaskEditor";
 import backendServices from "./backendServices";
+import mockData from "./mockData";
 
 export default class extends Component {
   constructor(props) {
@@ -11,45 +12,17 @@ export default class extends Component {
         editorIsOpen: false,
         taskToEdit: initialTask,
         showCompletedTasks: false,
-        tasks: [
-            {
-                title: "Task XYZ",
-                description: "Description",
-                completed: true
-            },
-            {
-                title: "Task XYZ",
-                description: "Description",
-                completed: false
-            },
-            {
-                title: "Task XYZ",
-                description: "Description",
-                completed: false
-            },
-        ]
+        tasks: mockData
     };
   }
 
-  render() {
-    const CreateNewTaskButton = () => (
-        <div>
-          <button
-              onClick={this.__openEditor}
-              className="btn btn-primary"
-          >
-            Add task
-          </button>
-        </div>
-    )
-
+    render() {
     return (
         <main className="content">
           <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
           <div className="row ">
             <div className="col-md-6 col-sm-10 mx-auto p-0">
               <div className="card p-3">
-                  <CreateNewTaskButton/>
                   <TaskList
                       toggleCompletedTasks={() => this.setState({showCompletedTasks: !this.state.showCompletedTasks})}
                       tasks={this.state.tasks}
