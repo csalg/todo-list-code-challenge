@@ -30,6 +30,7 @@ export default class extends Component {
                       tasks={this.state.tasks}
                       editTaskCallback={this.__editTask}
                       deleteTaskCallback={this.__deleteTask}
+                      newTaskCallback={() => this.__editTask(initialTask)}
                   />
               </div>
             </div>
@@ -125,6 +126,7 @@ const TaskList = (props) => {
                 tasks={filteredTasks}
                 editCallback={props.editTaskCallback}
                 deleteCallback={props.deleteTaskCallback}
+                newTaskCallback={props.newTaskCallback}
             />
         </Context.Provider>
     )

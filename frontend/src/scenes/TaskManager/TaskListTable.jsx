@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({tasks, editCallback, deleteCallback}) => {
+export default ({tasks, editCallback, deleteCallback, newTaskCallback}) => {
     return (
         <ul className="list-group list-group-flush">
             <li
@@ -14,6 +14,7 @@ export default ({tasks, editCallback, deleteCallback}) => {
                     title={"Add new task"}
                     style={{alignSelf: "flex-end"}}
                     className="btn btn-primary"
+                    onClick={newTaskCallback}
                 >
                     Add
                 </button>
