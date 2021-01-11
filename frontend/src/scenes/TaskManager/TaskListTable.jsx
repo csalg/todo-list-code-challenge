@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({tasks, editCallback, deleteCallback, newTaskCallback}) => {
+export default ({tasks, onTaskUpdate, onTaskDelete, onTaskCreate}) => {
     return (
         <ul className="list-group list-group-flush">
             <li
@@ -14,7 +14,7 @@ export default ({tasks, editCallback, deleteCallback, newTaskCallback}) => {
                     title={"Add new task"}
                     style={{alignSelf: "flex-end"}}
                     className="btn btn-primary"
-                    onClick={newTaskCallback}
+                    onClick={onTaskCreate}
                 >
                     Add
                 </button>
@@ -24,14 +24,14 @@ export default ({tasks, editCallback, deleteCallback, newTaskCallback}) => {
                 task =>
                     <Task
                         task={task}
-                        deleteCallback={deleteCallback}
-                        editCallback={editCallback}
+                        onTaskDelete={onTaskDelete}
+                        onTaskUpdate={onTaskUpdate}
                     />)}
         </ul>
     )
 };
 
-const Task = ({task, editCallback, deleteCallback}) => {
+const Task = ({task, onTaskUpdate, onTaskDelete}) => {
     const Details = () => (
         <div>
             <span className={`mr-2 ${task.completed ? "completed-todo" : ""}`}>
@@ -55,14 +55,14 @@ const Task = ({task, editCallback, deleteCallback}) => {
     const Actions = () => (
         <span style={{width: "150px"}}>
             <button
-                onClick={() => editCallback(task)}
+                onClick={() => onTaskUpdate(task)}
                 className="btn btn-secondary mr-2"
             >
             {" "}
                 Edit{" "}
             </button>
             <button
-                onClick={() => deleteCallback(task)}
+                onClick={() => onTaskDelete(task)}
                 className="btn btn-danger"
             >
             Delete{" "}

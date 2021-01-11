@@ -26,9 +26,9 @@ export default class extends Component {
               <div className="card p-3">
                   <TaskList
                       tasks={this.state.tasks}
-                      editTaskCallback={this.__editTask}
-                      deleteTaskCallback={this.__deleteTask}
-                      newTaskCallback={() => this.__editTask(initialTask)}
+                      onTaskUpdate={this.__editTask}
+                      onTaskDelete={this.__deleteTask}
+                      onTaskCreate={() => this.__editTask(initialTask)}
                   />
               </div>
             </div>
@@ -80,7 +80,7 @@ const initialTask = {
     completed: false
 }
 
-const TaskList = (props) => {
+const TaskList = ({tasks, onTaskUpdate, onTaskDelete, onTaskCreate}) => {
     const [context, setContext] = useState({
         text: "",
         tags: [],
@@ -88,13 +88,13 @@ const TaskList = (props) => {
     })
 
     const tags = []
-    props.tasks.forEach(task => task.tags.forEach(tag => {
+    tasks.forEach(task => task.tags.forEach(tag => {
             if (!tags.includes(tag))
                 tags.push(tag)
         }
     ))
 
-    const filteredTasks = props.tasks.filter(
+    const filteredTasks = tasks.filter(
         task => {
             const completeFilter = !task.completed || context.showCompleted
             const textFilter = task.title.search(context.text) !== -1 || task.description.search(context.text) !== -1
@@ -122,9 +122,9 @@ const TaskList = (props) => {
             />
             <TaskListTable
                 tasks={filteredTasks}
-                editCallback={props.editTaskCallback}
-                deleteCallback={props.deleteTaskCallback}
-                newTaskCallback={props.newTaskCallback}
+                onTaskUpdate={onTaskUpdate}
+                onTaskDelete={onTaskDelete}
+                onTaskCreate={onTaskCreate}
             />
         </Context.Provider>
     )
