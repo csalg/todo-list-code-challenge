@@ -4,7 +4,7 @@ import TaskEditor from "./TaskEditor";
 import backendServices from "./backendServices";
 import mockData from "./mockData";
 import Context from "./context";
-import TaskListFilter, {Filter} from "./TaskListFilter";
+import TaskListFilter from "./TaskListFilter";
 import TaskListTable from "./TaskListTable";
 
 export default class extends Component {
