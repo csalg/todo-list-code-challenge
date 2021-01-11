@@ -13,7 +13,6 @@ export default class extends Component {
     this.state = {
         editorIsOpen: false,
         taskToEdit: initialTask,
-        showCompletedTasks: false,
         tasks: mockData
     };
   }
@@ -26,7 +25,6 @@ export default class extends Component {
             <div className="col-md-6 col-sm-10 mx-auto p-0">
               <div className="card p-3">
                   <TaskList
-                      toggleCompletedTasks={() => this.setState({showCompletedTasks: !this.state.showCompletedTasks})}
                       tasks={this.state.tasks}
                       editTaskCallback={this.__editTask}
                       deleteTaskCallback={this.__deleteTask}
